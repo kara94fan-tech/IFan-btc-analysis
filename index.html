@@ -1,0 +1,2259 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IFAN SOCIAL</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f3f5;
+  color:#17202a;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#fff;
+  border-bottom:1px solid #ddd;
+  padding:10px;
+}
+
+.header-inner{
+  max-width:700px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.nav{
+  display:flex;
+  gap:5px;
+}
+
+button{
+  border:0;
+  border-radius:8px;
+  padding:10px 13px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.btn{background:#1877f2;color:#fff}
+.red{background:#e53935;color:#fff}
+.green{background:#2e7d32;color:#fff}
+.gray{background:#e9ecef;color:#222}
+.orange{background:#ef6c00;color:#fff}
+
+.wrap{
+  max-width:700px;
+  margin:15px auto;
+  padding:0 10px;
+}
+
+.card{
+  background:#fff;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:15px;
+  box-shadow:0 1px 5px rgba(0,0,0,.08);
+}
+
+.hidden{
+  display:none!important;
+}
+
+input,textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  margin-bottom:10px;
+  font-size:15px;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.actions button{
+  flex:1;
+  min-width:110px;
+}
+
+.profile{
+  text-align:center;
+}
+
+.profile-img{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#ddd;
+  border:3px solid #eee;
+}
+
+.avatar{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#ddd;
+}
+
+.post-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.post-user{
+  flex:1;
+}
+
+.post-user strong{
+  display:block;
+}
+
+.time{
+  color:#777;
+  font-size:12px;
+}
+
+.post-text{
+  white-space:pre-wrap;
+  line-height:1.5;
+  margin:14px 0;
+}
+
+.post-img{
+  width:100%;
+  max-height:550px;
+  object-fit:contain;
+  border-radius:10px;
+  background:#eee;
+}
+
+.post-actions{
+  display:flex;
+  gap:5px;
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid #eee;
+}
+
+.post-actions button{
+  flex:1;
+  background:#f1f3f5;
+}
+
+.comment{
+  background:#f1f3f5;
+  padding:8px;
+  border-radius:8px;
+  margin-top:6px;
+}
+
+.menu{
+  position:relative;
+}
+
+.menu-box{
+  position:absolute;
+  right:0;
+  top:40px;
+  width:140px;
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:8px;
+  box-shadow:0 3px 12px rgba(0,0,0,.15);
+  z-index:20;
+}
+
+.menu-box button{
+  display:block;
+  width:100%;
+  text-align:left;
+  background:#fff;
+  border-radius:0;
+}
+
+.video-box{
+  width:100%;
+  background:#000;
+  border-radius:12px;
+  overflow:hidden;
+  margin:10px 0;
+}
+
+video{
+  width:100%;
+  display:block;
+  background:#000;
+  max-height:500px;
+}
+
+.live-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.live-dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:red;
+}
+
+.room-code{
+  font-size:25px;
+  font-weight:bold;
+  text-align:center;
+  padding:15px;
+  background:#f1f3f5;
+  border-radius:10px;
+  letter-spacing:3px;
+}
+
+.message{
+  text-align:center;
+  padding:8px;
+}
+
+hr{
+  border:0;
+  border-top:1px solid #eee;
+  margin:15px 0;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="header-inner">
+
+  <div class="logo">IFAN SOCIAL</div>
+
+  <div class="nav">
+
+    <button class="btn" onclick="showPage('home')">🏠</button>
+
+    <button class="btn" onclick="showPage('profile')">👤</button>
+
+    <button class="orange" onclick="showPage('live')">🔴</button>
+
+    <button class="red" onclick="logoutUser()">Keluar</button>
+
+  </div>
+
+</div>
+</header>
+
+
+<div class="wrap">
+
+<!-- LOGIN -->
+
+<section id="loginBox" class="card">
+
+<h2 style="text-align:center">
+Masuk IFAN SOCIAL
+</h2>
+
+<input
+ id="loginEmail"
+ type="email"
+ placeholder="Email">
+
+<input
+ id="loginPassword"
+ type="password"
+ placeholder="Password">
+
+<div class="actions">
+
+<button class="btn" onclick="loginUser()">
+Masuk
+</button>
+
+<button class="green" onclick="registerUser()">
+Daftar
+</button>
+
+</div>
+
+<div id="loginMessage" class="message"></div>
+
+</section>
+
+
+<!-- HOME -->
+
+<section id="homePage" class="hidden">
+
+<div class="card">
+
+<h3>Apa yang sedang kamu pikirkan?</h3>
+
+<textarea
+ id="status"
+ placeholder="Tulis status..."></textarea>
+
+<input
+ id="photo"
+ type="file"
+ accept="image/*">
+
+<button class="btn" onclick="addPost()">
+Kirim Status
+</button>
+
+</div>
+
+<div id="posts"></div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profilePage" class="hidden">
+
+<div class="card profile">
+
+<h2>Profil Saya</h2>
+
+<img
+ id="profileImg"
+ class="profile-img"
+ src=""
+ alt="Foto profil">
+
+<h3 id="profileName">Ifan</h3>
+
+<hr>
+
+<input
+ id="nameInput"
+ placeholder="Nama kamu">
+
+<input
+ id="avatarInput"
+ type="file"
+ accept="image/*">
+
+<button class="btn" onclick="saveProfile()">
+Simpan Profil
+</button>
+
+<div id="profileMessage" class="message"></div>
+
+</div>
+
+</section>
+
+
+<!-- LIVE -->
+
+<section id="livePage" class="hidden">
+
+<div class="card">
+
+<h2 class="live-title">
+<span class="live-dot"></span>
+IFAN LIVE
+</h2>
+
+<p>
+Buat siaran langsung atau masuk ke siaran orang lain menggunakan kode room.
+</p>
+
+<div class="actions">
+
+<button class="red" onclick="startLive()">
+🔴 Mulai Live
+</button>
+
+<button class="btn" onclick="joinLive()">
+👀 Masuk Live
+</button>
+
+<button class="gray" onclick="stopLive()">
+⛔ Hentikan
+</button>
+
+</div>
+
+<div
+id="liveRoom"
+class="room-code hidden">
+</div>
+
+<div class="video-box">
+
+<video
+id="localVideo"
+autoplay
+muted
+playsinline>
+</video>
+
+</div>
+
+<div class="video-box">
+
+<video
+id="remoteVideo"
+autoplay
+playsinline>
+</video>
+
+</div>
+
+<div id="liveMessage" class="message"></div>
+
+</div>
+
+</section>
+
+</div>
+
+
+<script type="module">
+
+/* =====================================================
+   FIREBASE
+===================================================== */
+
+import {
+ initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+ getAuth,
+ createUserWithEmailAndPassword,
+ signInWithEmailAndPassword,
+ onAuthStateChanged,
+ signOut
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+ getFirestore,
+ collection,
+ doc,
+ addDoc,
+ getDoc,
+ getDocs,
+ setDoc,
+ updateDoc,
+ deleteDoc,
+ serverTimestamp,
+ onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig={
+
+ apiKey:
+ "AIzaSyBHLDNKvxJ_8cibdyJ4xhQWBmeUV4Wo1oE",
+
+ authDomain:
+ "ifan-social-web.firebaseapp.com",
+
+ databaseURL:
+ "https://ifan-social-web-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+ projectId:
+ "ifan-social-web",
+
+ storageBucket:
+ "ifan-social-web.firebasestorage.app",
+
+ messagingSenderId:
+ "GANTI_DENGAN_MESSAGING_SENDER_ID",
+
+ appId:
+ "GANTI_DENGAN_APP_ID"
+
+};
+
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+const db=getFirestore(app);
+
+
+/* =====================================================
+   DATA
+===================================================== */
+
+let posts=[];
+
+let profile={
+ name:"Ifan",
+ avatar:""
+};
+
+let localStream=null;
+
+let peerConnections={};
+
+let liveRoomId=null;
+
+let liveUnsubscribe=null;
+
+
+/* =====================================================
+   HELPER
+===================================================== */
+
+function $(id){
+ return document.getElementById(id);
+}
+
+
+function esc(value){
+
+ if(value===null || value===undefined){
+  return "";
+ }
+
+ return String(value)
+ .replace(/&/g,"&amp;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;")
+ .replace(/"/g,"&quot;")
+ .replace(/'/g,"&#039;");
+
+}
+
+
+function fileToBase64(file){
+
+ return new Promise((resolve,reject)=>{
+
+  const reader=new FileReader();
+
+  reader.onload=()=>resolve(reader.result);
+
+  reader.onerror=reject;
+
+  reader.readAsDataURL(file);
+
+ });
+
+}
+
+
+function createAvatar(name){
+
+ const letter=(name||"I")
+ .charAt(0)
+ .toUpperCase();
+
+ const svg=`
+ <svg xmlns="http://www.w3.org/2000/svg"
+ width="200" height="200">
+
+ <rect width="100%"
+ height="100%"
+ fill="#1877f2"/>
+
+ <text x="50%"
+ y="55%"
+ dominant-baseline="middle"
+ text-anchor="middle"
+ font-size="100"
+ font-family="Arial"
+ fill="white">
+ ${letter}
+ </text>
+
+ </svg>`;
+
+ return "data:image/svg+xml;charset=UTF-8,"+
+ encodeURIComponent(svg);
+
+}
+
+
+/* =====================================================
+   NAVIGASI
+===================================================== */
+
+window.showPage=function(page){
+
+ $("homePage").classList.add("hidden");
+ $("profilePage").classList.add("hidden");
+ $("livePage").classList.add("hidden");
+
+ if(page==="home"){
+
+  $("homePage").classList.remove("hidden");
+
+  if(auth.currentUser){
+   loadPosts();
+  }
+
+ }
+
+ if(page==="profile"){
+
+  $("profilePage").classList.remove("hidden");
+
+  loadProfile();
+
+ }
+
+ if(page==="live"){
+
+  $("livePage").classList.remove("hidden");
+
+ }
+
+};
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+window.loginUser=async function(){
+
+ const email=$("loginEmail").value.trim();
+
+ const password=$("loginPassword").value;
+
+ if(!email||!password){
+
+  $("loginMessage").textContent=
+  "Email dan password harus diisi.";
+
+  return;
+
+ }
+
+ try{
+
+  await signInWithEmailAndPassword(
+   auth,
+   email,
+   password
+  );
+
+  $("loginMessage").textContent=
+  "Berhasil masuk.";
+
+ }catch(error){
+
+  console.error(error);
+
+  $("loginMessage").textContent=
+  "Gagal masuk: "+error.code;
+
+ }
+
+};
+
+
+window.registerUser=async function(){
+
+ const email=$("loginEmail").value.trim();
+
+ const password=$("loginPassword").value;
+
+ if(!email||!password){
+
+  $("loginMessage").textContent=
+  "Email dan password harus diisi.";
+
+  return;
+
+ }
+
+ if(password.length<6){
+
+  $("loginMessage").textContent=
+  "Password minimal 6 karakter.";
+
+  return;
+
+ }
+
+ try{
+
+  const result=
+  await createUserWithEmailAndPassword(
+   auth,
+   email,
+   password
+  );
+
+  const uid=result.user.uid;
+
+  profile={
+   name:"Ifan",
+   avatar:""
+  };
+
+  await setDoc(
+   doc(db,"users",uid),
+   {
+    name:"Ifan",
+    avatar:"",
+    email:email,
+    createdAt:serverTimestamp()
+   },
+   {merge:true}
+  );
+
+  $("loginMessage").textContent=
+  "Akun berhasil dibuat.";
+
+ }catch(error){
+
+  console.error(error);
+
+  $("loginMessage").textContent=
+  "Gagal daftar: "+error.code;
+
+ }
+
+};
+
+
+window.logoutUser=async function(){
+
+ await stopLive();
+
+ await signOut(auth);
+
+};
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+onAuthStateChanged(auth,async(user)=>{
+
+ if(user){
+
+  $("loginBox").classList.add("hidden");
+
+  await loadProfile();
+
+  showPage("home");
+
+ }else{
+
+  $("loginBox").classList.remove("hidden");
+
+  $("homePage").classList.add("hidden");
+
+  $("profilePage").classList.add("hidden");
+
+  $("livePage").classList.add("hidden");
+
+ }
+
+});
+
+
+/* =====================================================
+   PROFILE FIRESTORE
+===================================================== */
+
+async function loadProfile(){
+
+ const user=auth.currentUser;
+
+ if(!user){
+  return;
+ }
+
+ try{
+
+  const ref=
+  doc(db,"users",user.uid);
+
+  const snap=
+  await getDoc(ref);
+
+  if(snap.exists()){
+
+   const data=snap.data();
+
+   profile={
+    name:data.name || "Ifan",
+    avatar:data.avatar || ""
+   };
+
+  }else{
+
+   profile={
+    name:"Ifan",
+    avatar:""
+   };
+
+   await setDoc(
+    ref,
+    {
+     name:"Ifan",
+     avatar:"",
+     email:user.email || "",
+     createdAt:serverTimestamp()
+    },
+    {merge:true}
+   );
+
+  }
+
+
+  $("profileName").textContent=
+  profile.name;
+
+  $("nameInput").value=
+  profile.name;
+
+
+  $("profileImg").src=
+  profile.avatar ||
+  createAvatar(profile.name);
+
+
+ }catch(error){
+
+  console.error(error);
+
+  $("profileMessage").textContent=
+  "Gagal mengambil profil: "+
+  error.code;
+
+ }
+
+}
+
+
+/* =====================================================
+   SAVE PROFILE FIRESTORE
+===================================================== */
+
+window.saveProfile=async function(){
+
+ const user=auth.currentUser;
+
+ if(!user){
+
+  alert("Silakan login.");
+
+  return;
+
+ }
+
+ const name=$("nameInput").value.trim();
+
+ const file=$("avatarInput").files[0];
+
+ if(!name){
+
+  $("profileMessage").textContent=
+  "Nama tidak boleh kosong.";
+
+  return;
+
+ }
+
+ try{
+
+  $("profileMessage").textContent=
+  "Menyimpan profil...";
+
+  let avatar=profile.avatar || "";
+
+  if(file){
+
+   avatar=await fileToBase64(file);
+
+  }
+
+
+  await setDoc(
+   doc(db,"users",user.uid),
+   {
+    name:name,
+    avatar:avatar,
+    email:user.email || "",
+    updatedAt:serverTimestamp()
+   },
+   {merge:true}
+  );
+
+
+  profile={
+   name:name,
+   avatar:avatar
+  };
+
+
+  $("profileName").textContent=name;
+
+  $("profileImg").src=
+  avatar || createAvatar(name);
+
+  $("avatarInput").value="";
+
+  $("profileMessage").textContent=
+  "Profil berhasil disimpan.";
+
+  await updateMyPostsProfile();
+
+ }catch(error){
+
+  console.error(error);
+
+  $("profileMessage").textContent=
+  "Gagal menyimpan profil: "+
+  error.code+
+  " | "+
+  error.message;
+
+ }
+
+};
+
+
+/* =====================================================
+   UPDATE NAMA/FOTO DI POST MILIK USER
+===================================================== */
+
+async function updateMyPostsProfile(){
+
+ const user=auth.currentUser;
+
+ if(!user){
+  return;
+ }
+
+ try{
+
+  const snap=
+  await getDocs(
+   collection(
+    db,
+    "users",
+    user.uid,
+    "posts"
+   )
+  );
+
+  for(const item of snap.docs){
+
+   await updateDoc(
+    item.ref,
+    {
+     name:profile.name,
+     avatar:profile.avatar
+    }
+   );
+
+  }
+
+  await loadPosts();
+
+ }catch(error){
+
+  console.error(error);
+
+ }
+
+}
+
+
+/* =====================================================
+   POST
+===================================================== */
+
+window.addPost=async function(){
+
+ const user=auth.currentUser;
+
+ if(!user){
+
+  alert("Silakan login terlebih dahulu.");
+
+  return;
+
+ }
+
+ const text=$("status").value.trim();
+
+ const file=$("photo").files[0];
+
+ if(!text&&!file){
+
+  alert("Tulis status atau pilih foto.");
+
+  return;
+
+ }
+
+ try{
+
+  let image="";
+
+  if(file){
+
+   image=await fileToBase64(file);
+
+  }
+
+
+  const data={
+
+   uid:user.uid,
+
+   name:profile.name,
+
+   avatar:profile.avatar,
+
+   text:text,
+
+   image:image,
+
+   likes:0,
+
+   likedBy:[],
+
+   comments:[],
+
+   time:new Date().toLocaleString("id-ID"),
+
+   createdAt:serverTimestamp()
+
+  };
+
+
+  await addDoc(
+   collection(
+    db,
+    "users",
+    user.uid,
+    "posts"
+   ),
+   data
+  );
+
+
+  $("status").value="";
+
+  $("photo").value="";
+
+  await loadPosts();
+
+  alert("Status berhasil disimpan.");
+
+ }catch(error){
+
+  console.error(error);
+
+  alert(
+   "Gagal menyimpan: "+
+   error.code+
+   "\n"+
+   error.message
+  );
+
+ }
+
+};
+
+
+/* =====================================================
+   LOAD POSTS
+===================================================== */
+
+async function loadPosts(){
+
+ const user=auth.currentUser;
+
+ if(!user){
+  return;
+ }
+
+ try{
+
+  const snap=
+  await getDocs(
+   collection(
+    db,
+    "users",
+    user.uid,
+    "posts"
+   )
+  );
+
+  posts=[];
+
+  snap.forEach(item=>{
+
+   const data=item.data();
+
+   posts.push({
+
+    ...data,
+
+    id:item.id,
+
+    likes:data.likes||0,
+
+    likedBy:data.likedBy||[],
+
+    comments:data.comments||[]
+
+   });
+
+  });
+
+
+  posts.sort((a,b)=>{
+
+   const aa=a.createdAt?.seconds||0;
+
+   const bb=b.createdAt?.seconds||0;
+
+   return bb-aa;
+
+  });
+
+
+  render();
+
+ }catch(error){
+
+  console.error(error);
+
+  $("posts").innerHTML=`
+   <div class="card">
+   Gagal memuat posting:
+   ${esc(error.code)}
+   </div>
+  `;
+
+ }
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function render(){
+
+ if(posts.length===0){
+
+  $("posts").innerHTML=`
+   <div class="card" style="text-align:center">
+   Belum ada posting.
+   </div>
+  `;
+
+  return;
+
+ }
+
+
+ $("posts").innerHTML=
+ posts.map((p,i)=>{
+
+  const avatar=
+   p.avatar||
+   createAvatar(p.name||"I");
+
+  const liked=
+   auth.currentUser &&
+   (p.likedBy||[])
+   .includes(auth.currentUser.uid);
+
+
+  const comments=p.comments||[];
+
+
+  return`
+
+  <div class="card">
+
+   <div class="post-head">
+
+    <img
+     class="avatar"
+     src="${avatar}">
+
+    <div class="post-user">
+
+     <strong>
+      ${esc(p.name||"Ifan")}
+     </strong>
+
+     <span class="time">
+      ${esc(p.time||"")}
+     </span>
+
+    </div>
+
+    <div class="menu">
+
+     <button
+      class="gray"
+      onclick="toggleMenu(${i})">
+      ⋮
+     </button>
+
+     <div
+      id="menu${i}"
+      class="menu-box hidden">
+
+      <button onclick="editPost(${i})">
+       ✏️ Edit
+      </button>
+
+      <button onclick="deletePost(${i})">
+       🗑️ Hapus
+      </button>
+
+     </div>
+
+    </div>
+
+   </div>
+
+
+   ${
+    p.text
+    ?
+    `<div class="post-text">
+     ${esc(p.text)}
+    </div>`
+    :""
+   }
+
+
+   ${
+    p.image
+    ?
+    `<img
+     class="post-img"
+     src="${p.image}">`
+    :""
+   }
+
+
+   <div class="post-actions">
+
+    <button onclick="likePost(${i})">
+     ${liked?"❤️":"🤍"}
+     ${p.likes||0}
+    </button>
+
+    <button onclick="commentPost(${i})">
+     💬 ${comments.length}
+    </button>
+
+    <button onclick="sharePost(${i})">
+     🔗
+    </button>
+
+   </div>
+
+
+   ${
+    comments.map(c=>`
+     <div class="comment">
+      <strong>
+       ${esc(c.name||"Pengguna")}
+      </strong>
+      <br>
+      ${esc(c.text||"")}
+     </div>
+    `).join("")
+   }
+
+  </div>
+
+  `;
+
+ }).join("");
+
+}
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+window.toggleMenu=function(i){
+
+ const el=$("menu"+i);
+
+ if(el){
+  el.classList.toggle("hidden");
+ }
+
+};
+
+
+/* =====================================================
+   LIKE
+===================================================== */
+
+window.likePost=async function(i){
+
+ const user=auth.currentUser;
+
+ const p=posts[i];
+
+ if(!user||!p){
+  return;
+ }
+
+ let likedBy=p.likedBy||[];
+
+ if(likedBy.includes(user.uid)){
+
+  likedBy=
+  likedBy.filter(
+   id=>id!==user.uid
+  );
+
+ }else{
+
+  likedBy.push(user.uid);
+
+ }
+
+
+ const likes=likedBy.length;
+
+
+ try{
+
+  await updateDoc(
+   doc(
+    db,
+    "users",
+    p.uid,
+    "posts",
+    p.id
+   ),
+   {
+    likedBy:likedBy,
+    likes:likes
+   }
+  );
+
+  p.likedBy=likedBy;
+
+  p.likes=likes;
+
+  render();
+
+ }catch(error){
+
+  alert(
+   "Like gagal: "+
+   error.code
+  );
+
+ }
+
+};
+
+
+/* =====================================================
+   KOMENTAR
+===================================================== */
+
+window.commentPost=async function(i){
+
+ const user=auth.currentUser;
+
+ const p=posts[i];
+
+ if(!user||!p){
+  return;
+ }
+
+ const text=prompt("Tulis komentar:");
+
+ if(!text||!text.trim()){
+  return;
+ }
+
+ const comments=p.comments||[];
+
+ comments.push({
+
+  uid:user.uid,
+
+  name:profile.name,
+
+  text:text.trim(),
+
+  time:new Date().toLocaleString("id-ID")
+
+ });
+
+
+ try{
+
+  await updateDoc(
+   doc(
+    db,
+    "users",
+    p.uid,
+    "posts",
+    p.id
+   ),
+   {
+    comments:comments
+   }
+  );
+
+  p.comments=comments;
+
+  render();
+
+ }catch(error){
+
+  alert(
+   "Komentar gagal: "+
+   error.code
+  );
+
+ }
+
+};
+
+
+/* =====================================================
+   EDIT
+===================================================== */
+
+window.editPost=async function(i){
+
+ const p=posts[i];
+
+ const user=auth.currentUser;
+
+ if(!p||!user||p.uid!==user.uid){
+
+  alert("Kamu hanya bisa mengedit posting sendiri.");
+
+  return;
+
+ }
+
+ const text=prompt(
+  "Edit status:",
+  p.text||""
+ );
+
+ if(text===null){
+  return;
+ }
+
+ try{
+
+  await updateDoc(
+   doc(
+    db,
+    "users",
+    p.uid,
+    "posts",
+    p.id
+   ),
+   {
+    text:text.trim()
+   }
+  );
+
+  p.text=text.trim();
+
+  render();
+
+ }catch(error){
+
+  alert(
+   "Edit gagal: "+
+   error.code
+  );
+
+ }
+
+};
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+window.deletePost=async function(i){
+
+ const p=posts[i];
+
+ const user=auth.currentUser;
+
+ if(!p||!user||p.uid!==user.uid){
+
+  alert("Kamu hanya bisa menghapus posting sendiri.");
+
+  return;
+
+ }
+
+ if(!confirm("Hapus posting ini?")){
+  return;
+ }
+
+ try{
+
+  await deleteDoc(
+   doc(
+    db,
+    "users",
+    p.uid,
+    "posts",
+    p.id
+   )
+  );
+
+  posts.splice(i,1);
+
+  render();
+
+ }catch(error){
+
+  alert(
+   "Hapus gagal: "+
+   error.code
+  );
+
+ }
+
+};
+
+
+/* =====================================================
+   SHARE
+===================================================== */
+
+window.sharePost=async function(i){
+
+ const p=posts[i];
+
+ const text=
+ `${p.name||"Ifan"}:\n${p.text||""}`;
+
+ try{
+
+  if(navigator.share){
+
+   await navigator.share({
+    title:"IFAN SOCIAL",
+    text:text
+   });
+
+  }else{
+
+   await navigator.clipboard.writeText(text);
+
+   alert("Posting berhasil disalin.");
+
+  }
+
+ }catch(e){
+
+  console.log(e);
+
+ }
+
+};
+
+
+/* =====================================================
+   LIVE STREAMING
+===================================================== */
+
+const rtcConfig={
+ iceServers:[
+  {
+   urls:"stun:stun.l.google.com:19302"
+  },
+  {
+   urls:"stun:stun1.l.google.com:19302"
+  }
+ ]
+};
+
+
+/* -----------------------------------------------------
+   MULAI LIVE
+----------------------------------------------------- */
+
+window.startLive=async function(){
+
+ const user=auth.currentUser;
+
+ if(!user){
+
+  alert("Silakan login.");
+
+  return;
+
+ }
+
+ try{
+
+  localStream=
+  await navigator.mediaDevices.getUserMedia({
+
+   video:true,
+
+   audio:true
+
+  });
+
+
+  $("localVideo").srcObject=
+  localStream;
+
+
+  const roomRef=
+  doc(
+   collection(db,"liveRooms")
+  );
+
+
+  liveRoomId=roomRef.id;
+
+
+  await setDoc(
+   roomRef,
+   {
+    hostUid:user.uid,
+    hostName:profile.name,
+    status:"live",
+    createdAt:serverTimestamp()
+   }
+  );
+
+
+  $("liveRoom").textContent=
+  liveRoomId;
+
+  $("liveRoom").classList.remove("hidden");
+
+
+  $("liveMessage").textContent=
+  "LIVE aktif. Bagikan kode room kepada penonton: "+
+  liveRoomId;
+
+
+  listenForViewers(liveRoomId);
+
+
+ }catch(error){
+
+  console.error(error);
+
+  $("liveMessage").textContent=
+  "Gagal memulai kamera: "+
+  error.message;
+
+ }
+
+};
+
+
+/* -----------------------------------------------------
+   LISTEN VIEWERS
+----------------------------------------------------- */
+
+function listenForViewers(roomId){
+
+ if(liveUnsubscribe){
+  liveUnsubscribe();
+ }
+
+ const viewersRef=
+ collection(
+  db,
+  "liveRooms",
+  roomId,
+  "viewers"
+ );
+
+
+ liveUnsubscribe=
+ onSnapshot(
+  viewersRef,
+  async(snapshot)=>{
+
+   for(const change of snapshot.docChanges()){
+
+    if(change.type!=="added"){
+     continue;
+    }
+
+    const viewerId=
+    change.doc.id;
+
+    if(peerConnections[viewerId]){
+     continue;
+    }
+
+    await createHostConnection(
+     roomId,
+     viewerId
+    );
+
+   }
+
+  }
+ );
+
+}
+
+
+/* -----------------------------------------------------
+   HOST CONNECTION
+----------------------------------------------------- */
+
+async function createHostConnection(
+ roomId,
+ viewerId
+){
+
+ const pc=
+ new RTCPeerConnection(
+  rtcConfig
+ );
+
+
+ peerConnections[viewerId]=pc;
+
+
+ if(localStream){
+
+  localStream
+  .getTracks()
+  .forEach(track=>{
+
+   pc.addTrack(
+    track,
+    localStream
+   );
+
+  });
+
+ }
+
+
+ pc.onicecandidate=async(event)=>{
+
+  if(!event.candidate){
+   return;
+  }
+
+  await addDoc(
+
+   collection(
+    db,
+    "liveRooms",
+    roomId,
+    "viewers",
+    viewerId,
+    "hostCandidates"
+   ),
+
+   event.candidate.toJSON()
+
+  );
+
+ };
+
+
+ const offer=
+ await pc.createOffer();
+
+ await pc.setLocalDescription(offer);
+
+
+ await setDoc(
+
+  doc(
+   db,
+   "liveRooms",
+   roomId,
+   "viewers",
+   viewerId
+  ),
+
+  {
+   offer:{
+    type:offer.type,
+    sdp:offer.sdp
+   }
+  },
+
+  {merge:true}
+
+ );
+
+
+ onSnapshot(
+
+  doc(
+   db,
+   "liveRooms",
+   roomId,
+   "viewers",
+   viewerId
+  ),
+
+  async(snap)=>{
+
+   const data=snap.data();
+
+   if(
+    data &&
+    data.answer &&
+    !pc.currentRemoteDescription
+   ){
+
+    await pc.setRemoteDescription(
+     new RTCSessionDescription(
+      data.answer
+     )
+    );
+
+   }
+
+  }
+
+ );
+
+
+ onSnapshot(
+
+  collection(
+   db,
+   "liveRooms",
+   roomId,
+   "viewers",
+   viewerId,
+   "viewerCandidates"
+  ),
+
+  snapshot=>{
+
+   snapshot.docChanges()
+   .forEach(async(change)=>{
+
+    if(change.type==="added"){
+
+     try{
+
+      await pc.addIceCandidate(
+       new RTCIceCandidate(
+        change.doc.data()
+       )
+      );
+
+     }catch(e){
+
+      console.log(e);
+
+     }
+
+    }
+
+   });
+
+  }
+
+ );
+
+}
+
+
+/* -----------------------------------------------------
+   MASUK LIVE
+----------------------------------------------------- */
+
+window.joinLive=async function(){
+
+ const user=auth.currentUser;
+
+ if(!user){
+
+  alert("Silakan login.");
+
+  return;
+
+ }
+
+ const roomId=
+ prompt("Masukkan kode room live:");
+
+ if(!roomId){
+  return;
+ }
+
+ try{
+
+  const roomSnap=
+  await getDoc(
+   doc(db,"liveRooms",roomId)
+  );
+
+
+  if(!roomSnap.exists()){
+
+   alert("Room live tidak ditemukan.");
+
+   return;
+
+  }
+
+
+  const room=roomSnap.data();
+
+
+  if(room.status!=="live"){
+
+   alert("Live sudah tidak aktif.");
+
+   return;
+
+  }
+
+
+  const viewerId=user.uid;
+
+
+  const pc=
+  new RTCPeerConnection(
+   rtcConfig
+  );
+
+
+  peerConnections.viewer=pc;
+
+
+  pc.ontrack=(event)=>{
+
+   if(event.streams[0]){
+
+    $("remoteVideo").srcObject=
+    event.streams[0];
+
+   }
+
+  };
+
+
+  pc.onicecandidate=async(event)=>{
+
+   if(!event.candidate){
+    return;
+   }
+
+   await addDoc(
+
+    collection(
+     db,
+     "liveRooms",
+     roomId,
+     "viewers",
+     viewerId,
+     "viewerCandidates"
+    ),
+
+    event.candidate.toJSON()
+
+   );
+
+  };
+
+
+  const viewerRef=
+  doc(
+   db,
+   "liveRooms",
+   roomId,
+   "viewers",
+   viewerId
+  );
+
+
+  await setDoc(
+   viewerRef,
+   {
+    uid:viewerId,
+    name:profile.name
+   },
+   {merge:true}
+  );
+
+
+  const offerSnap=
+  await waitForOffer(viewerRef);
+
+
+  const offerData=
+  offerSnap.data();
+
+
+  await pc.setRemoteDescription(
+
+   new RTCSessionDescription(
+    offerData.offer
+   )
+
+  );
+
+
+  const answer=
+  await pc.createAnswer();
+
+  await pc.setLocalDescription(answer);
+
+
+  await updateDoc(
+
+   viewerRef,
+
+   {
+    answer:{
+     type:answer.type,
+     sdp:answer.sdp
+    }
+   }
+
+  );
+
+
+  onSnapshot(
+
+   collection(
+    db,
+    "liveRooms",
+    roomId,
+    "viewers",
+    viewerId,
+    "hostCandidates"
+   ),
+
+   snapshot=>{
+
+    snapshot.docChanges()
+    .forEach(async(change)=>{
+
+     if(change.type==="added"){
+
+      try{
+
+       await pc.addIceCandidate(
+        new RTCIceCandidate(
+         change.doc.data()
+        )
+       );
+
+      }catch(e){
+
+       console.log(e);
+
+      }
+
+     }
+
+    });
+
+   }
+
+  );
+
+
+  $("liveMessage").textContent=
+  "Berhasil masuk ke LIVE.";
+
+ }catch(error){
+
+  console.error(error);
+
+  $("liveMessage").textContent=
+  "Gagal masuk LIVE: "+
+  error.code+
+  " | "+
+  error.message;
+
+ }
+
+};
+
+
+/* -----------------------------------------------------
+   TUNGGU OFFER
+----------------------------------------------------- */
+
+function waitForOffer(ref){
+
+ return new Promise((resolve,reject)=>{
+
+  const unsubscribe=
+  onSnapshot(
+   ref,
+   snap=>{
+
+    const data=snap.data();
+
+    if(data && data.offer){
+
+     unsubscribe();
+
+     resolve(snap);
+
+    }
+
+   },
+   error=>{
+
+    unsubscribe();
+
+    reject(error);
+
+   }
+  );
+
+ });
+
+}
+
+
+/* -----------------------------------------------------
+   STOP LIVE
+----------------------------------------------------- */
+
+window.stopLive=async function(){
+
+ if(localStream){
+
+  localStream
+  .getTracks()
+  .forEach(track=>{
+   track.stop();
+  });
+
+  localStream=null;
+
+ }
+
+
+ $("localVideo").srcObject=null;
+
+ $("remoteVideo").srcObject=null;
+
+
+ Object.values(peerConnections)
+ .forEach(pc=>{
+
+  try{
+   pc.close();
+  }catch(e){}
+
+ });
+
+
+ peerConnections={};
+
+
+ if(liveUnsubscribe){
+
+  liveUnsubscribe();
+
+  liveUnsubscribe=null;
+
+ }
+
+
+ if(liveRoomId){
+
+  try{
+
+   await updateDoc(
+
+    doc(
+     db,
+     "liveRooms",
+     liveRoomId
+    ),
+
+    {
+     status:"ended"
+    }
+
+   );
+
+  }catch(e){
+
+   console.log(e);
+
+  }
+
+ }
+
+
+ liveRoomId=null;
+
+ $("liveRoom").classList.add("hidden");
+
+ $("liveMessage").textContent=
+ "Live dihentikan.";
+
+};
+
+
+/* =====================================================
+   END
+===================================================== */
+
+</script>
+
+</body>
+</html>
